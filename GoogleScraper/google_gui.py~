@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+
+from GoogleScraper import scrape_with_config, GoogleSearchError
+
+def search_google():
+    """A function to search google for our film
+    """
+    lb = "+--------------------------------------------------------------+"
+    # prefix of search term
+    site = "site:vodlocker.com " 
+    # ask user for search term
+    keywords = site + input("{0}\n|{1}[?] {2}Enter a film title to search for.." \
+                            "\n|\n|{3}--> {4}".format(lb, O, W, B, W)) 
+    config = {
+    'use_own_ip': True,                     # whether to use our own IP address 
+    'keyword': keywords,
+    'search_engines': ['google'],           # various configuration settings
+    'num_pages_for_keyword': 1,
+    'scrape_method': 'http',
+    'do_caching': False,
+    'num_results_per_page': 50,
+    'log_level': 'CRITICAL',
+    'output_filename': 'results.csv'        # file to save links to 
+#    'proxy_file': 'proxies.txt'            # file to load proixies from 
+    }
+    try:
+        search = scrape_with_config(config)
+    except GoogleSearchError as e:
+        print(e)
